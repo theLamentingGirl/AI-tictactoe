@@ -172,10 +172,10 @@ def main():
 
 
 
-#
-#
-#    PlayerGame=playTicTacToe()
-#    PlayerGame.play()
+
+
+   PlayerGame=playTicTacToe()
+   PlayerGame.play()
 #    
 #    decision=PlayerGame.screen()
 #    if decision[0]!=False:
