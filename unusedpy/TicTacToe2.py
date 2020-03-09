@@ -26,7 +26,8 @@ class TicTacToe:
         self.p2=1
         self.draw=False
         self.gameArea=np.empty((3,3))
-        
+        self.gameArea.fill(None)
+#        print(self.gameArea)
         
         
     
@@ -110,10 +111,10 @@ class playTicTacToe(TicTacToe):
 
     def __init__(self,*args): #OVERlOADED CONSTRUCTOR 
         super().__init__()
-#        TicTacToe.gameArea.fill(np.nan)
         if len(args)>0:
-            TicTacToe.gameArea=args[0]
-        
+            self.gameArea=args[0]
+#        else:
+#            TicTacToe.gameArea
             
 
     def play(self):
@@ -161,11 +162,11 @@ class playTicTacToe(TicTacToe):
 
 def main():
     
-    playState=np.array([[1,0,1],[0,1,0],[0,0,1]])
-    playState2=np.array([[0,0,1],[0,1,0],[0,1,1]])
-    playState3=np.array([[1,0,1],[0,1,0],[0,1,0]])
-    testPlay=playTicTacToe(playState)
-    testPlay.play()
+#    playState=np.array([[1,0,1],[0,1,0],[0,0,1]])
+#    playState2=np.array([[0,0,1],[0,1,0],[0,1,1]])
+#    playState3=np.array([[1,0,1],[0,1,0],[0,1,0]])
+#    testPlay=playTicTacToe(playState)
+#    testPlay.play()
     
     
     #HOW TO TEST THE GAME for player1 and player 2
@@ -174,8 +175,8 @@ def main():
 
 
 
-   PlayerGame=playTicTacToe()
-   PlayerGame.play()
+    PlayerGame=playTicTacToe()
+    PlayerGame.play()
 #    
 #    decision=PlayerGame.screen()
 #    if decision[0]!=False:
@@ -187,5 +188,4 @@ def main():
 #    print(who,' won the game')
 #    print(testPlay.draw)
 
-if __name__=="main":
-    main()
+if __name__=="main": main()
