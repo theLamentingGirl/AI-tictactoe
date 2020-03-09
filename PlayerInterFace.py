@@ -3,6 +3,7 @@
 Created on Mon Mar  9 21:17:04 2020
 
 @author: gaGzy
+@author: wridhdhi
 """
 
 from GameEngine import *

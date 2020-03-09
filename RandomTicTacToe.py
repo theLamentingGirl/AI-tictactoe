@@ -4,11 +4,11 @@ Created on Tue Mar 10 03:30:49 2020
 
 @author: gaGzy
 """
-from TicTacToe4 import *
+from GameEngine import *
 import random
 
 class RandomTicTacToe(playTicTacToe):
-    playNo=100
+    playNo=1000
     def __init__(self):
         super().__init__()
         self.inputChoices=['00','01','02','10','11','12','20','21','22']
