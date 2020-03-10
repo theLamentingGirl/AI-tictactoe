@@ -15,10 +15,6 @@ class TicTacToe:
     #initializing game area
     #The game area is a 3x3 empty matrix filled with nan.
 
-#    gameArea=np.empty((3,3))
-#    gameArea.fill(None)
-#    print(gameArea)
-
     #CLASS METHODS-----------------------
     #instance attributes are the values player1 or player 2 can give
     def __init__(self):
@@ -30,6 +26,7 @@ class TicTacToe:
         self.buttonVal={"button1":'00',"button2":'01',"button3":'02',"button4":'10',\
                    "button5":'11',"button6":'12',"button7":'20',"button8":'21',\
                    "button9":'22'}
+        self.pos=None
 
     def screen(self):
         
@@ -123,20 +120,20 @@ class playTicTacToe(TicTacToe):
 #        buttonValue=self.buttonVal
 #       pos=
         if inputval==None :
-            pos=input(str("{} make a move:".format(int(player)))) #enter 33
+            self.pos=input(str("{} make a move:".format(int(player)))) #enter 33
 #        print(pos,type(pos))
-            if(len(pos)>2):
+            if(len(self.pos)>2):
                 print("enter valid position")
                 return False
         else:
-            pos=inputval
+            self.pos=inputval
         
 #        print("This is the value:",self.gameArea[int(pos[0]),int(pos[1])],"This is the type of gameArea val:",type(self.gameArea[int(pos[0]),int(pos[1])]))
-        if np.isnan(self.gameArea[int(pos[0]),int(pos[1])]): 
-            self.gameArea[int(pos[0]),int(pos[1])]=playerValue
+        if np.isnan(self.gameArea[int(self.pos[0]),int(self.pos[1])]): 
+            self.gameArea[int(self.pos[0]),int(self.pos[1])]=playerValue
 #            print('entering values into',pos)
             return True
 #        elif self.gameArea[int(pos[0]),int(pos[1])] == 1 or self.gameArea[int(pos[0]),int(pos[1])]==0:
-        elif self.gameArea[int(pos[0]),int(pos[1])] == 1 or self.gameArea[int(pos[0]),int(pos[1])]==0:
+        elif self.gameArea[int(self.pos[0]),int(self.pos[1])] == 1 or self.gameArea[int(self.pos[0]),int(self.pos[1])]==0:
             print('Error:the area is filled already')
             return False

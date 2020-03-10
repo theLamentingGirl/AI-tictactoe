@@ -87,11 +87,18 @@ class playerInterface(playTicTacToe):
         #button9
         self.button9=Button(self.topframe,padx=50,pady=50,command=lambda:self.clickButton(self.button9,'button9'))
         self.button9.pack(side=LEFT)
+        
+        self.userStartButton=Button(self.partition1,padx=10,pady=2,text="User Start")
+        self.userStartButton.pack(side=LEFT)
+
+        self.compStartButton=Button(self.partition1,padx=10,pady=2,text="Comp Start")
+        self.compStartButton.pack(side=LEFT)
+        
 
         self.buttonVal={"button1":'00',"button2":'01',"button3":'02',"button4":'10',\
                    "button5":'11',"button6":'12',"button7":'20',"button8":'21',\
                    "button9":'22'}
-        self.parent.mainloop()
+ #       self.parent.mainloop()
 
 
     def disableAll(self):
@@ -163,6 +170,8 @@ class playerInterface(playTicTacToe):
         self.button7.configure(state=NORMAL,text="")
         self.button8.configure(state=NORMAL,text="")
         self.button9.configure(state=NORMAL,text="")
+        self.userStartButton.configure(state=NORMAL,text='User Play ')
+        self.compStartButton.configure(state=NORMAL,text='Comp Play')
         self.playerBox.configure(text="")
         self.textBox.configure(text="make a move")
 
