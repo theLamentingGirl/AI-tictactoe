@@ -13,9 +13,9 @@ class SinglePlay(playerInterface,RandomTicTacToe):
         self.userStartButton.configure(command=self.playerClick)
         self.compStartButton.configure(command=self.compClick)
 
-        self.buttonIndex={'00':"button1",'01':"button2",'02':"button3",'10':"button4",\
-                          '11':"button5",'12':"button6",'20':"button7",'21':"button8",\
-                          '22':"button9"}
+        self.buttonIndex={'00':self.button1,'01':self.button2,'02':self.button3,'10':self.button4,\
+                          '11':self.button5,'12':self.button6,'20':self.button7,'21':self.button8,\
+                          '22':self.button9}
         self.parent.mainloop()
         
     def playerClick(self):
@@ -35,6 +35,7 @@ class SinglePlay(playerInterface,RandomTicTacToe):
 
         #1st player plays then comp
     def compClick(self):
+        print("This is inside comp click" )
         self.compStartButton.configure(state=DISABLED)
         self.userStartButton.configure(state=DISABLED)
 
@@ -51,102 +52,142 @@ class SinglePlay(playerInterface,RandomTicTacToe):
         
         #1st comp plays then player
     def playerPlay(self,whichbutton,buttonname):
-        player=self.player
+        
+        print("This is user move")
+#        player=self.player
         winStatus=self.checkWin()
+
 #        while self.prompt(player)==True:
         if not(winStatus[0]):
+
             print("the win condition is ",self.checkWin())
 #            didhe=playerInterface().clickButton(whichbutton=None,buttonname=None)
-            if player==0:
+            if self.player==0:
                 textToPut='O'
             else:
                 textToPut='X'
 
-            didhe=self.prompt(player,self.buttonVal[buttonname])
+            didhe=self.prompt(self.player,self.buttonVal[buttonname])
             self.playerBox.configure(text=textToPut)
+            print("This is didhe",didhe)
+            self.winner()
+            print("This is player",self.player)
+            if didhe==True:
+                self.player=int(not(self.player))
 
             whichbutton["text"]=textToPut
             whichbutton.configure(state=DISABLED)
+#            print(whichbutton,type(whichbutton))
             self.inputChoices.remove(self.pos)
-        self.winner()
+
+
         print(self.gameArea)
-        print("This is input choices",self.inputChoices)
+#        print("This is input choices",self.inputChoices)
             # WHO PLAYS FIRST 
-#        winStatus=self.checkWin()
+        winStatus=self.checkWin()
 #        print('the win status: ', winStatus)
 #        ''' Loop iterates until game is won/loss/draw
 #        else keep playing'''
         print("This is comp move")
-        player=self.player
+#        player=self.player
+
         bias=1
         if not(winStatus[0]):
-            if player==0:
+
+            print("the win condition is ",self.checkWin())
+            if self.player==0:
                 textToPut='O'
             else:
                 textToPut='X'
 
-            print("the win condition is ",self.checkWin())
-            didhe=self.prompt(player,self.choose())
+            didhe=self.prompt(self.player,self.choose())
             bias=0
             print('if he made a valid move:',didhe)
+            self.winner()
+#            print("This is player",self.player)
             if didhe==True:
-                player=int(not(player))
+                self.player=int(not(self.player))
             winStatus=self.checkWin()
         pos=self.pos[0]+self.pos[1]
         
         #---Here the code fucks up. whichbutton is a str. Fix it
-        self.whichbutton=self.buttonIndex[pos]
-        self.whichbutton.configure(text=textToPut)
-        self.whichbutton.configure(state=DISABLED)
-        self.winner()
+        whichbutton=self.buttonIndex[pos]
+        whichbutton.configure(text=textToPut)
+        whichbutton.configure(state=DISABLED)
+
         print(self.gameArea)
+        print(self.inputChoices)
 #        return winStatus[1]
 
     def compPlay(self,whichbutton,buttonname):
+            # WHO PLAYS FIRST 
         winStatus=self.checkWin()
-        player=self.player
+#        print('the win status: ', winStatus)
+#        ''' Loop iterates until game is won/loss/draw
+#        else keep playing'''
+        print("This is comp move")
+#        player=self.player
+
         bias=1
         if not(winStatus[0]):
-            
-            if player==0:
+
+            print("the win condition is ",self.checkWin())
+            if self.player==0:
                 textToPut='O'
             else:
                 textToPut='X'
 
-            print("the win condition is ",self.checkWin())
-            didhe=self.prompt(player,self.choose())
+            didhe=self.prompt(self.player,self.choose())
+            print(self.choose())
+            pos=self.pos[0]+self.pos[1]
             bias=0
             print('if he made a valid move:',didhe)
+            self.winner()
+#            print("This is player",self.player)
             if didhe==True:
-                player=int(not(player))
+                self.player=int(not(self.player))
             winStatus=self.checkWin()
-        pos=self.pos[0]+self.pos[1]
+            
+        
+        #---Here the code fucks up. whichbutton is a str. Fix it
         whichbutton=self.buttonIndex[pos]
-        self.whichbutton["text"]=textToPut
-        self.whichbutton.configure(state=DISABLED)
-        self.winner()
-        
-        
-        player=self.player
+        whichbutton.configure(text=textToPut)
+        whichbutton.configure(state=DISABLED)
+
+        print(self.gameArea)
+        print(self.inputChoices)
+#        return winStatus[1]
+#         return winStatus[1]
+        print("This is user move")
+#        player=self.player
         winStatus=self.checkWin()
+
 #        while self.prompt(player)==True:
         if not(winStatus[0]):
+
             print("the win condition is ",self.checkWin())
 #            didhe=playerInterface().clickButton(whichbutton=None,buttonname=None)
-            if player==0:
+            if self.player==0:
                 textToPut='O'
             else:
                 textToPut='X'
-                
-            didhe=self.prompt(player,self.buttonVal[buttonname])
+
+            didhe=self.prompt(self.player,self.buttonVal[buttonname])
             self.playerBox.configure(text=textToPut)
+            print("This is didhe",didhe)
+            self.winner()
+            print("This is player",self.player)
+            if didhe==True:
+                self.player=int(not(self.player))
+
             whichbutton["text"]=textToPut
             whichbutton.configure(state=DISABLED)
+#            print(whichbutton,type(whichbutton))
             self.inputChoices.remove(self.pos)
-        self.winner()
-        
-            
-            
+
+
+        print(self.gameArea)
+
 def main():
     SinglePlay()
     

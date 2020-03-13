@@ -151,6 +151,7 @@ class playerInterface(playTicTacToe):
                 textToPut='O'
             else:
                 textToPut='X'
+#            print("player",self.player,"text",textToPut)
             self.playerBox.configure(text=textToPut)
             if winStatus[1]=='':
                 self.playerBox.configure(text='')
@@ -159,21 +160,24 @@ class playerInterface(playTicTacToe):
                 return self.textBox.configure(text='won the game')
     
     def reset(self):
+        self.player=0
         self.gameArea=np.empty((3,3))
         self.gameArea.fill(None)
-        self.button1.configure(state=NORMAL,text="")
-        self.button2.configure(state=NORMAL,text="")
-        self.button3.configure(state=NORMAL,text="")
-        self.button4.configure(state=NORMAL,text="")
-        self.button5.configure(state=NORMAL,text="")
-        self.button6.configure(state=NORMAL,text="")
-        self.button7.configure(state=NORMAL,text="")
-        self.button8.configure(state=NORMAL,text="")
-        self.button9.configure(state=NORMAL,text="")
+        self.button1.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button1,"button1"))
+        self.button2.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button2,"button2"))
+        self.button3.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button3,"button3"))
+        self.button4.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button4,"button4"))
+        self.button5.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button5,"button5"))
+        self.button6.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button6,"button6"))
+        self.button7.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button7,"button7"))
+        self.button8.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button8,"button8"))
+        self.button9.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button9,"button9"))
         self.userStartButton.configure(state=NORMAL,text='User Play ')
         self.compStartButton.configure(state=NORMAL,text='Comp Play')
         self.playerBox.configure(text="")
         self.textBox.configure(text="make a move")
+        self.inputChoices=['00','01','02','10','11','12','20','21','22']
+        
 
 
 #MAIN FUNCTION
