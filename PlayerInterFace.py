@@ -5,10 +5,9 @@ Created on Mon Mar  9 21:17:04 2020
 @author: gaGzy
 @author: wridhdhi
 """
+'''BUGS FIXED COMPLETELY'''
 
 from GameEngine import *
-
-#=============================================================================
 
 class playerInterface(playTicTacToe):
     def __init__(self):
@@ -25,8 +24,8 @@ class playerInterface(playTicTacToe):
         self.quitButton=Button(self.partition1,text="QUIT",padx=10,pady=2,command=self.parent.destroy)
         self.quitButton.pack(side=RIGHT)
 
-#shows which player to play
-        self.playerBox=Label(self.partition1)
+    #shows which player to play
+        self.playerBox=Label(self.partition1,text="O")
         self.playerBox.pack(side=RIGHT)
 
         self.textBox=Label(self.partition1,text="make a move")
@@ -98,9 +97,9 @@ class playerInterface(playTicTacToe):
         self.buttonVal={"button1":'00',"button2":'01',"button3":'02',"button4":'10',\
                    "button5":'11',"button6":'12',"button7":'20',"button8":'21',\
                    "button9":'22'}
- #       self.parent.mainloop()
+#        self.parent.mainloop()
 
-
+    '''disable all buttons'''
     def disableAll(self):
         self.button1.configure(state=DISABLED)
         self.button2.configure(state=DISABLED)
@@ -112,57 +111,90 @@ class playerInterface(playTicTacToe):
         self.button8.configure(state=DISABLED)
         self.button9.configure(state=DISABLED)
 
+    '''checks win condition and says who won in the playerbox/ Draw'''
+    def winner(self):
+        winStatus=self.checkWin()
+
+        if winStatus[0]==True:
+
+            #when  winstatus is true disable all buttons
+            self.disableAll()
+
+            #assigning X and O
+            if self.player==0:
+                textToPut='O'
+            else:
+                textToPut='X'
+
+            #which player wins
+            print("which player wins",self.player)
+
+            #playerBox says who makes a move.
+            #In winner() it tells who won the game
+            self.playerBox.configure(text=textToPut)
+
+            #during draw condition
+            if winStatus[1]=='2':
+                self.playerBox.configure(text='')
+                return self.textBox.configure(text='Draw')
+            #during win condition
+            else:
+                return self.textBox.configure(text='won the game')
+                return self.playerBox.configure(text=self.player)
+
+    '''what happens when a button is clicked by user'''
     def clickButton(self,whichbutton,buttonname):
 
-        ''' Loop iterates until game is won/loss/draw
-        else keep playing'''
         winStatus=self.checkWin()
-#        while self.prompt(player)==True:
-        if not(winStatus[0]):
+        if winStatus[0]==False:
+
             print("the win condition is ",self.checkWin())
 #            didhe=playerInterface().clickButton(whichbutton=None,buttonname=None)
             if self.player==0:
                 textToPut='O'
             else:
                 textToPut='X'
-
+            #fills the game area 
             didhe=self.prompt(self.player,self.buttonVal[buttonname])
-            self.playerBox.configure(text=textToPut)
-
+            #updates the playerInterface
             whichbutton["text"]=textToPut
             whichbutton.configure(state=DISABLED)
+            #-----------------------------------------------------------------
+            #check now if the win condition is true/false
+            winStatus=self.checkWin()
 
-            self.winner()
+            #if true winner()
+            if winStatus[0]==True:
+                self.winner()
+                self.playerBox.configure(text=textToPut)
+                '''slight glitch: during draw condition the player box is not empty
+                it shows Draw O instead of just Draw'''
 
+            # if win cond. false : CHANGE PLAYERBOX
+            else:
+                print('if he made a valid move:',didhe)
+                if didhe==True:
+                    self.player=int(not(self.player))
+                
+                if self.player==0:
+                    textToPut='O'
+                else:
+                    textToPut='X'
+                #value in player box
+                self.playerBox.configure(text=textToPut)
 
-            # CHANGE PLAYERBOX
-            print('if he made a valid move:',didhe)
-            if didhe==True:
-                self.player=int(not(self.player))
-
-#                if self.checkWin()==True:
         print(self.gameArea)
 
-    def winner(self):
-        winStatus=self.checkWin()
-        if winStatus[0]==True:
-            self.disableAll()
-            if self.player==0:
-                textToPut='O'
-            else:
-                textToPut='X'
-#            print("player",self.player,"text",textToPut)
-            self.playerBox.configure(text=textToPut)
-            if winStatus[1]=='':
-                self.playerBox.configure(text='')
-                return self.textBox.configure(text='Draw')
-            else:
-                return self.textBox.configure(text='won the game')
-    
+    '''resets all the values'''
     def reset(self):
         self.player=0
         self.gameArea=np.empty((3,3))
         self.gameArea.fill(None)
+        self.userStartButton.configure(state=NORMAL,text='User Play ')
+        self.compStartButton.configure(state=NORMAL,text='Comp Play')
+        self.playerBox.configure(text="O")
+        self.textBox.configure(text="make a move")
+        self.inputChoices=['00','01','02','10','11','12','20','21','22']
         self.button1.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button1,"button1"))
         self.button2.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button2,"button2"))
         self.button3.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button3,"button3"))
@@ -172,37 +204,19 @@ class playerInterface(playTicTacToe):
         self.button7.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button7,"button7"))
         self.button8.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button8,"button8"))
         self.button9.configure(state=NORMAL,text="",command=lambda:self.clickButton(self.button9,"button9"))
-        self.userStartButton.configure(state=NORMAL,text='User Play ')
-        self.compStartButton.configure(state=NORMAL,text='Comp Play')
-        self.playerBox.configure(text="")
-        self.textBox.configure(text="make a move")
-        self.inputChoices=['00','01','02','10','11','12','20','21','22']
-        
-
-
-#MAIN FUNCTION
-
-def main():
-    
-#    playState=np.array([[1,0,1],[0,1,0],[0,0,1]])
-#    playState2=np.array([[0,0,1],[0,1,0],[0,1,1]])
-    playState3=np.array([[1,0,1],[0,1,0],[0,1,0]])
-    testPlay=playTicTacToe(playState3)
-    testPlay.play()
-    
-    
-    #HOW TO TEST THE GAME for player1 and player 2
-    PlayerGame=playerInterface()
-#    PlayerGame.play()
+#
+#'''MAIN FUNCTION'''
+#def main():
 #    
-#    decision=PlayerGame.screen()
-#    if decision[0]!=False:
-#        who=decision[1]
-#        print(who,' won the game')
-#    else:
-#        print("Draw")
-    
-#    print(who,' won the game')
-#    print(testPlay.draw)
-
-if __name__=="main": main()
+#    '''For test play'''
+##    playState=np.array([[1,0,1],[0,1,0],[0,0,1]])
+##    playState2=np.array([[0,0,1],[0,1,0],[0,1,1]])
+##    playState3=np.array([[1,0,1],[0,1,0],[0,1,0]])
+##    testPlay=playTicTacToe(playState3)
+##    testPlay.play()
+#
+#    #HOW TO TEST THE GAME for player1 and player 2
+#    PlayerGame=playerInterface()
+##    PlayerGame.play()
+#
+#if __name__=="main": main()

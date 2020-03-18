@@ -4,19 +4,17 @@ Created on Tue Mar 10 05:06:07 2020
 
 @author: gaGzy
 """
+'''WORKING GAME ENGINE'''
 
 from tkinter import *
 import numpy as np
 
 class TicTacToe:
-    
-    #CLASS ATTRIB---------------------------
-    
+
     #initializing game area
     #The game area is a 3x3 empty matrix filled with nan.
 
-    #CLASS METHODS-----------------------
-    #instance attributes are the values player1 or player 2 can give
+    '''Initialising necessary attributes'''
     def __init__(self):
         self.p1=0
         self.p2=1
@@ -31,7 +29,7 @@ class TicTacToe:
         self.biasChoices=['11']
 
     def screen(self):
-        
+
         '''goes through either rows or colums or diagonals to see if win'''
         for j in range(0,3):
             if self.gameArea[j,0] == self.gameArea[j,1] and self.gameArea[j,1] == self.gameArea[j,2]:
@@ -70,57 +68,50 @@ class TicTacToe:
 #            print(decision[1], "won the game")
             return [True,int(decision[1])]
         
-        else:
-            if np.isnan(self.gameArea).any() == False:
+        elif np.isnan(self.gameArea).any() == False:
                 #GAME IS DRAW 
-                self.draw=True
+            self.draw=True
 #                print("the Game is draw")
-                return [True,'2']
-
-        return [False,'']
+            return [True,'2']
+        else:
+            return [False,'']
 #============================================================================
 
 class playTicTacToe(TicTacToe):
-#     
-#    def __init__(self):
-#        super().__init__()
 
     def __init__(self,*args): #OVERlOADED CONSTRUCTOR 
+        '''Note:it isn't possible to directly overload constructor in python like Java
+        thus this modified approach is used'''
         super().__init__()
         if len(args)>0:
             self.gameArea=args[0]
-#        else:
-#            TicTacToe.gameArea
-            
 
+    '''plays the game'''
     def play(self):
         ''' Loop iterates until game is won/loss/draw
         else keep playing'''
         player=0
         winStatus=self.checkWin()
-#        while self.prompt(player)==True:
+
         while not(winStatus[0]):
             print("the win condition is ",self.checkWin())
-#            didhe=playerInterface().clickButton(whichbutton=None,buttonname=None)
+            #inputs value into gameArea
             didhe=self.prompt(player)
             print('if he made a valid move:',didhe)
             if didhe==True:
+                #change player
                 player=int(not(player))
 #                if self.checkWin()==True:
         print(self.gameArea)
-#                    
-#            player=not(player)
-#            print(int(player))
-                
+
+    '''inputs value 1/0 into the game Area'''
     def prompt(self,player,inputval=None):#new modified to take clicks as well
         '''Asks for a position'''
         if player==0:
             playerValue=self.p1
         else :
             playerValue=self.p2
-            
-#        buttonValue=self.buttonVal
-#       pos=
+
         if inputval==None :
             self.pos=input(str("{} make a move:".format(int(player)))) #enter 33
 #        print(pos,type(pos))
@@ -129,13 +120,11 @@ class playTicTacToe(TicTacToe):
                 return False
         else:
             self.pos=inputval
-        
-#        print("This is the value:",self.gameArea[int(pos[0]),int(pos[1])],"This is the type of gameArea val:",type(self.gameArea[int(pos[0]),int(pos[1])]))
+
         if np.isnan(self.gameArea[int(self.pos[0]),int(self.pos[1])]): 
             self.gameArea[int(self.pos[0]),int(self.pos[1])]=playerValue
-#            print('entering values into',pos)
             return True
-#        elif self.gameArea[int(pos[0]),int(pos[1])] == 1 or self.gameArea[int(pos[0]),int(pos[1])]==0:
+
         elif self.gameArea[int(self.pos[0]),int(self.pos[1])] == 1 or self.gameArea[int(self.pos[0]),int(self.pos[1])]==0:
             print('Error:the area is filled already')
             return False
