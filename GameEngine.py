@@ -26,7 +26,7 @@ class TicTacToe:
                    "button9":'22'}
         self.pos=None
         self.inputChoices=['00','01','02','10','11','12','20','21','22']
-        self.biasChoices=['11']
+        self.biasChoices=['00','02','20','22']
 
     def screen(self):
 

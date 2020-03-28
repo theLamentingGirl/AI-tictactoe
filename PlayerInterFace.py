@@ -139,6 +139,7 @@ class playerInterface(playTicTacToe):
                 return self.textBox.configure(text='Draw')
             #during win condition
             else:
+
                 return self.textBox.configure(text='won the game')
                 return self.playerBox.configure(text=self.player)
 

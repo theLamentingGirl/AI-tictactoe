@@ -12,7 +12,7 @@ class RandomTicTacToe(playTicTacToe):
     def __init__(self):
         super().__init__()
         self.inputChoices=['00','01','02','10','11','12','20','21','22']
-        self.biasChoices=['11']
+        self.biasChoices=['00','02','20','22']
 #        '00','02','20','22'
 
     def randomPlay(self):
