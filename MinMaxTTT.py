@@ -2,14 +2,17 @@ from PlayerInterFace import *
 from RandomTicTacToe import *
 import numpy as np
 from sys import maxsize
-   class MinMax(playerInterface, RandomTicTacToe):
-        def __init__(self):
-            super().__init__()
+
+class MinMax(playerInterface, RandomTicTacToe):
+    def __init__(self):
+        super().__init__()
     # just assigned emoty to be assigned later
-            self.scores = np.nan
-            self.buttonIndex = {'00': self.button1, '01': self.button2, '02': self.button3, '10': self.button4,
+        self.scores = np.nan
+        self.buttonIndex = {'00': self.button1, '01': self.button2, '02': self.button3, '10': self.button4,
                         '11': self.button5, '12': self.button6, '20': self.button7, '21': self.button8,
                         '22': self.button9}
+#        self.maximiser=''
+#        self.minimiser=''
 
     def bestMove(self):
         # score of maximising player is positive->10;
@@ -17,21 +20,22 @@ from sys import maxsize
         # score of draw->0
         if self.player == 0:
             self.scores = {"0": "10", "1": "-10", "2": "0"}
+#            self.maximiser=0
+#            self.minimiser=1
         else:
             self.scores = {"0": "-10", "1": "10", "2": "0"}
-
-#        print("these are my scores",self.scores)
+#            self.maximiser=1
+#            self.minimiser=0
+    #        print("these are my scores",self.scores)
         '''initialising the bestScore to be -infinity since that's the smallest number,
         we wish to find a bestScore that's definitely greater than smallest number'''
         bestScore = -maxsize
-#       print("this is the player",self.player)
-
-# 2 for loops to sweep through the gameArea
+    #       print("this is the player",self.player)
+    # 2 for loops to sweep through the gameArea
         for i in range(3):
             for j in range(3):
                 #                print('printing from bestmove',type(self.gameArea))
                 #                print("This is player call from bestmove",self.player)
-
                 # bestPos returns the best position after running the minmax algorithm
                 if np.isnan(self.gameArea[i, j]):  # if its empty
                     self.gameArea[i, j] = self.player  # temp assignment
@@ -53,12 +57,30 @@ from sys import maxsize
             #            print("condition of algo is true and whoWon",whoWon)
             #           print(self.scores[str(whoWon)])
             return self.scores[str(whoWon)]
-
+#            if self.maximiser==0 and whoWon==self.maximiser:#0->
+#                print("inside cond1")
+#                self.scores[str(whoWon)]=int(self.scores[str(whoWon)])-depth
+#                return self.scores[str(whoWon)]
+##                print(self.scores[str(whoWon)])
+#            elif self.minimiser==1 and whoWon==self.minimiser:
+#                print("inside cond2")
+#                self.scores[str(whoWon)]=int(self.scores[str(whoWon)])+depth
+#                return self.scores[str(whoWon)]
+##                print(self.scores[str(whoWon)])
+#            elif self.maximiser==1 and whoWon==self.maximiser:
+#                print("inside cond3")
+#                self.scores[str(whoWon)]=int(self.scores[str(whoWon)])+depth
+#                return self.scores[str(whoWon)]
+#            elif self.minimiser==0 and whoWon==self.minimiser:
+#                print("inside cond4")
+#                self.scores[str(whoWon)]=int(self.scores[str(whoWon)])-depth
+#                return self.scores[str(whoWon)]
+    
         # if it's the maximising players turn
         elif isMax == True:
             bestScore = -maxsize
-#            print("This is the max player",self.player)
-# 2 for loops create one full instance gameState
+    #            print("This is the max player",self.player)
+    # 2 for loops create one full instance gameState
             for i in range(3):
                 for j in range(3):
                     if np.isnan(gameArea[i, j]):
@@ -68,10 +90,10 @@ from sys import maxsize
                         gameArea[i, j] = np.nan
                         bestScore = max(int(score), int(bestScore))
             return bestScore
-
+    
         else:  # False if it's the minimising player's turn
             bestScore = maxsize
-#            print("This is the min player",self.player)
+    #            print("This is the min player",self.player)
             for i in range(3):
                 for j in range(3):
                     if np.isnan(gameArea[i, j]):
@@ -82,7 +104,7 @@ from sys import maxsize
                         gameArea[i, j] = np.nan
                         bestScore = min(int(score), int(bestScore))
             return bestScore
-# -------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
 
 
 class PlayGame(MinMax):
@@ -147,7 +169,7 @@ class PlayGame(MinMax):
             # prompt sets the value of X or O as 0 or 1 in the gameArea
             print(self.player)
             # changes from CompvsUser
-            didhe = self.prompt(self.player, self.bestMove())
+            didhe = self.prompt(self.player, self.choose())#initial value choosen by comp is random
 
             print(self.gameArea)
 
